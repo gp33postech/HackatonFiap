@@ -1,35 +1,39 @@
+// app/(tabs)/_layout.tsx
 import { Tabs } from 'expo-router';
 import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Text } from 'react-native'; // Importe Text para usar com os ícones de emoji
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+    <SafeAreaProvider>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: 'blue', // Usando uma cor fixa para simplicidade
+          headerShown: false, // Oculta o cabeçalho padrão
+        }}>
+        <Tabs.Screen
+          name="turmas" // Nova aba para Turmas
+          options={{
+            title: 'Turmas',
+            tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>🏫</Text>, // Ícone de escola
+          }}
+        />
+        <Tabs.Screen
+          name="chamada" // Nova aba para Chamada (placeholder por enquanto)
+          options={{
+            title: 'Chamada',
+            tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>��</Text>, // Ícone de prancheta
+          }}
+        />
+         <Tabs.Screen
+          name="index" // Esta é a sua página de Relatórios
+          options={{
+            title: 'Relatórios',
+            tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>��</Text>, // Ícone de gráfico
+          }}
+        />
+      </Tabs>
+    </SafeAreaProvider>
   );
 }

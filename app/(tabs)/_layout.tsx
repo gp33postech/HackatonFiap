@@ -1,39 +1,30 @@
 // app/(tabs)/_layout.tsx
-import { Tabs } from 'expo-router';
+
 import React from 'react';
-import { Text } from 'react-native'; // Importe Text para usar com os ícones de emoji
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons'; // Exemplo de ícones
 
 export default function TabLayout() {
   return (
-    <SafeAreaProvider>
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: 'blue', // Usando uma cor fixa para simplicidade
-          headerShown: false, // Oculta o cabeçalho padrão
-        }}>
-        <Tabs.Screen
-          name="turmas" // Nova aba para Turmas
-          options={{
-            title: 'Turmas',
-            tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>🏫</Text>, // Ícone de escola
-          }}
-        />
-        <Tabs.Screen
-          name="chamada" // Nova aba para Chamada (placeholder por enquanto)
-          options={{
-            title: 'Chamada',
-            tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>��</Text>, // Ícone de prancheta
-          }}
-        />
-         <Tabs.Screen
-          name="index" // Esta é a sua página de Relatórios
-          options={{
-            title: 'Relatórios',
-            tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>��</Text>, // Ícone de gráfico
-          }}
-        />
-      </Tabs>
-    </SafeAreaProvider>
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+      <Tabs.Screen
+        name="turmas" // Corresponde ao arquivo turmas.tsx
+        options={{
+          title: 'Turmas',
+          tabBarIcon: ({ color }) => <Ionicons name="school" size={28} color={color} />,
+          headerShown: false, // O cabeçalho já está na tela
+        }}
+      />
+      <Tabs.Screen
+        name="chamada" // Corresponde ao arquivo chamada.tsx
+        options={{
+          title: 'Chamada',
+          tabBarIcon: ({ color }) => <Ionicons name="checkbox-outline" size={28} color={color} />,
+        }}
+      />
+       {/* Adicione outras abas aqui se precisar */}
+       {/* O arquivo index.tsx dentro de (tabs) seria a tela inicial das abas */}
+       <Tabs.Screen name="index" options={{ href: null }} /> 
+    </Tabs>
   );
 }

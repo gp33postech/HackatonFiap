@@ -5,7 +5,7 @@ import { ActivityIndicator, Alert, Button, RefreshControl, ScrollView, StyleShee
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Importa o store.js
-import { store } from '../../src/store';
+import { store } from '../../src/services/store';
 
 export default function ReportScreen() {
   type Turma = { id: string; nome: string };

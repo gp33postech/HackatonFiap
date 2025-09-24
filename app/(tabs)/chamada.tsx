@@ -2,21 +2,20 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  Button,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  // Removido o Switch: Switch, // Já removido na versão anterior
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    ActivityIndicator,
+    Alert,
+    Button,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { store } from '../../src/store';
+import { store } from '../../src/services/store';
 
 interface CheckboxProps {
   value: boolean;

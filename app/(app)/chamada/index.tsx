@@ -1,21 +1,11 @@
 // app/(tabs)/chamada.tsx
 import { Picker } from '@react-native-picker/picker';
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-    ActivityIndicator,
-    Alert,
-    Button,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from 'react-native';
+import {ActivityIndicator,Alert,Platform,ScrollView,StyleSheet,Text,TextInput,TouchableOpacity,View} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { store } from '../../src/services/store';
+import { store, Chamada } from '../../../src/services/store';
+
 
 interface CheckboxProps {
   value: boolean;
@@ -75,33 +65,8 @@ export default function ChamadaScreen() {
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [alunosDaTurma, setAlunosDaTurma] = useState<{ id: string; nome: string }[]>([]);
   const [alunosPresentes, setAlunosPresentes] = useState<{ [alunoId: string]: boolean }>({});
-  const [chamadasRecentes, setChamadasRecentes] = useState<
-    Array<{ dataISO: string; presencas: { [alunoId: string]: boolean } }>
-  >([]);
+  const [chamadasRecentes, setChamadasRecentes] = useState<Chamada[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const addSampleData = useCallback(async () => {
-    try {
-      const currentTurmas = await store.listTurmas();
-      if (currentTurmas.length === 0) {
-        console.log("Adicionando dados de exemplo...");
-        const turma1 = await store.addTurma('1º Ano A');
-        const turma2 = await store.addTurma('2º Ano B');
-
-        await store.addAluno('Maria Silva', turma1.id);
-        await store.addAluno('João Santos', turma1.id);
-        await store.addAluno('Ana Costa', turma2.id);
-        await store.addAluno('Pedro Rocha', turma2.id);
-        Alert.alert('Dados de Exemplo', 'Turmas e alunos de exemplo adicionados!');
-        loadTurmas();
-      } else {
-        Alert.alert('Dados de Exemplo', 'Já existem turmas cadastradas. Não foi necessário adicionar dados de exemplo.');
-      }
-    } catch (error) {
-      console.error("Erro ao adicionar dados de exemplo:", error);
-      Alert.alert('Erro', 'Não foi possível adicionar dados de exemplo.');
-    }
-  }, []);
 
   const loadTurmas = useCallback(async () => {
     try {
@@ -273,7 +238,7 @@ export default function ChamadaScreen() {
             </View>
 
             {/* Botão temporário para adicionar dados de exemplo */}
-            <Button title="Adicionar Dados de Exemplo (Temporário)" onPress={addSampleData} />
+           
 
 
             <View style={styles.boxAlunos}>

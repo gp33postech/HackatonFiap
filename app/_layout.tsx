@@ -3,10 +3,10 @@
 import { Stack, useRouter, useSegments } from 'expo-router';
 import  { useEffect, useState } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from '../src/config/firebase'; // Corrija o caminho se necessário
+import { auth } from '../src/config/firebase'; 
 import { ActivityIndicator, View } from 'react-native';
 
-// Componente AuthProvider para gerenciar o estado de autenticação
+
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -27,11 +27,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     const inAuthGroup = segments[0] === '(auth)';
 
     if (!user && !inAuthGroup) {
-      // Se não há usuário e não estamos na rota de login, redireciona para lá
+     
       router.replace('/login');
     } else if (user && inAuthGroup) {
-      // Se o usuário está logado e na tela de login, vai para a tela principal (tabs)
-      router.replace('/(tabs)/turmas');
+      
+      router.replace('/alunos');
     }
   }, [user, loading, segments, router]);
 
@@ -46,30 +46,22 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-// Layout principal da aplicação
+
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        {/* As telas de abas e modal são gerenciadas pelos seus próprios layouts */}
-         <Stack.Screen
-          name="login" 
+      <Stack>
+        {/* 1. Tela de Login  */}
+        <Stack.Screen
+          name="(auth)/login"
           options={{
             title: 'Gestão de Professores',
-            headerShown: true, 
-            headerStyle: {
-              backgroundColor: '#e9ecef', 
-            },
-            headerTintColor: '#000', 
-            headerTitleStyle: {
-              fontWeight: 'bold', // Estilo do título
-            },
-            headerShadowVisible: false, 
+            headerShown: false, 
+            
           }}
         />
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        
+        <Stack.Screen name="(app)" options={{ headerShown: false }} />
+     
       </Stack>
     </AuthProvider>
   );

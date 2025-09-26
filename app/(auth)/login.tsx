@@ -1,27 +1,19 @@
-// app/login.tsx
+
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  KeyboardAvoidingView,
-  Platform
-} from 'react-native';
+import {ActivityIndicator,Alert,StyleSheet,Text,TextInput,TouchableOpacity,View,KeyboardAvoidingView,Platform} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FirebaseError } from 'firebase/app';
-import { auth } from '../../src/config/firebase'; // Verifique se o caminho está correto
+import { auth } from '../../src/config/firebase';
+import { useRouter } from 'expo-router';
 
 
 export default function LoginScreen() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+ const router = useRouter();
 
   const handleLogin = async () => {
     if (email === '' || password === '') {
@@ -32,6 +24,7 @@ export default function LoginScreen() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
      
+      router.replace('/(app)/chamada');
     } catch (error) {
       if (error instanceof FirebaseError) {
         Alert.alert("Erro de Login", "Usuário ou senha inválidos.");
@@ -88,7 +81,7 @@ export default function LoginScreen() {
   );
 }
 
-// ESTILOS ATUALIZADOS
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

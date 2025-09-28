@@ -1,28 +1,21 @@
 
 import { initializeApp } from 'firebase/app';
-import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { getAuth } from 'firebase/auth';
 
-
-// Remova as importações de persistência que estavam dando erro
-// import { getReactNativePersistence } from 'firebase/auth/react-native';
-// import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
-
+// Configuração temporária para desenvolvimento - SUBSTITUA pelos valores reais do seu projeto Firebase
 const firebaseConfig = {
-  apiKey: process.env.EXPO_PUBLIC_API_KEY,
-  authDomain: process.env.EXPO_PUBLIC_AUTH_DOMAIN,
-  projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
-  storageBucket: process.env.EXPO_PUBLIC_STORAGE_BUCKET,
-  messagingSenderId: process.env.EXPO_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.EXPO_PUBLIC_APP_ID,
+  apiKey: "AIzaSyDummy-key-for-development-replace-with-real",
+  authDomain: "hackaton-fiap-dev.firebaseapp.com",
+  projectId: "hackaton-fiap-dev",
+  storageBucket: "hackaton-fiap-dev.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:abcdef123456789012345",
 };
 
 // Inicialize o Firebase App
 const app = initializeApp(firebaseConfig);
 
-
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-});
+// Para desenvolvimento, usar getAuth simples para evitar erros de persistência
+const auth = getAuth(app);
 
 export { app, auth };

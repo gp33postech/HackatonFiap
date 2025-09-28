@@ -1,10 +1,10 @@
 // app/_layout.tsx
 
 import { Stack, useRouter, useSegments } from 'expo-router';
-import  { useEffect, useState } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from '../src/config/firebase'; 
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
+import { auth } from '../src/config/firebase';
 
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -25,15 +25,14 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     if (loading) return;
 
     const inAuthGroup = segments[0] === '(auth)';
+    const inAppGroup = segments[0] === '(app)';
 
-    if (!user && !inAuthGroup) {
-     
-      router.replace('/login');
-    } else if (user && inAuthGroup) {
-      
-      router.replace('/alunos');
+    // Só redireciona para login se não estiver nem em auth nem em app
+    if (!inAuthGroup && !inAppGroup && segments.length > 0) {
+      router.replace('/(auth)/login');
     }
-  }, [user, loading, segments, router]);
+    // Permite navegação livre entre (auth) e (app)
+  }, [loading, segments, router]);
 
   if (loading) {
     return (

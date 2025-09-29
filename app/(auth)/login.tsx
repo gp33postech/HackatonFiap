@@ -1,33 +1,22 @@
-
-
-import { useRouter } from 'expo-router';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {ActivityIndicator,Alert,StyleSheet,Text,TextInput,TouchableOpacity,View,KeyboardAvoidingView,Platform} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { FirebaseError } from 'firebase/app';
+import { auth } from '../../src/config/firebase'; // Verifique se o caminho está correto
+import { useRouter } from 'expo-router';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
- const router = useRouter();
-
+  const router = useRouter();
+  
   const handleLogin = async () => {
     if (email === '' || password === '') {
       Alert.alert("Atenção", "Por favor, preencha o usuário e a senha.");
       return;
     }
-    
-    // Login simples para desenvolvimento (sem Firebase)
-    if (email === 'admin@fiap.com' && password === '123456') {
-      Alert.alert("Sucesso", "Login realizado com sucesso!");
-      router.replace('/(app)');
-    } else {
-      Alert.alert("Erro", "Usuário: admin@fiap.com | Senha: 123456");
-    }
-    
-    // Código Firebase comentado temporariamente
-    /*
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -41,25 +30,6 @@ export default function LoginScreen() {
     } finally {
       setLoading(false);
     }
-    */
-  };
-
-  // Função para pular o login durante desenvolvimento
-  const handleSkipLogin = () => {
-    console.log('Botão pular login pressionado');
-    Alert.alert(
-      "Pular Login", 
-      "Navegando para o menu principal...", 
-      [
-        {
-          text: "OK",
-          onPress: () => {
-            console.log('Executando navegação...');
-            router.push('/(app)');
-          }
-        }
-      ]
-    );
   };
 
   return (
@@ -70,13 +40,6 @@ export default function LoginScreen() {
       >
         <View style={styles.card}>
           <Text style={styles.title}>Login</Text>
-          
-          {/* Dica de credenciais para desenvolvimento */}
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>💡 Credenciais de teste:</Text>
-            <Text style={styles.credentialText}>Email: admin@fiap.com</Text>
-            <Text style={styles.credentialText}>Senha: 123456</Text>
-          </View>
 
           {/* Label e Input para Usuário */}
           <Text style={styles.label}>Usuario</Text>
@@ -102,17 +65,11 @@ export default function LoginScreen() {
             {loading ? (
               <ActivityIndicator size="small" color="#000" />
             ) : (
+              
               <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Entrar</Text>
               </TouchableOpacity>
             )}
-          </View>
-
-          {/* Botão temporário para desenvolvimento */}
-          <View style={styles.skipContainer}>
-            <TouchableOpacity style={styles.skipButton} onPress={handleSkipLogin}>
-              <Text style={styles.skipButtonText}>Pular Login (Desenvolvimento)</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -120,7 +77,7 @@ export default function LoginScreen() {
   );
 }
 
-
+// ESTILOS ATUALIZADOS
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -183,38 +140,5 @@ const styles = StyleSheet.create({
     color: '#fff', 
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  skipContainer: {
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  skipButton: {
-    backgroundColor: '#6c757d',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 5,
-  },
-  skipButtonText: {
-    color: '#fff',
-    fontSize: 14,
-  },
-  infoContainer: {
-    backgroundColor: '#e7f3ff',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 20,
-    borderLeftWidth: 4,
-    borderLeftColor: '#4A90E2',
-  },
-  infoText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#2c5282',
-    marginBottom: 5,
-  },
-  credentialText: {
-    fontSize: 13,
-    color: '#2c5282',
-    marginLeft: 10,
   },
 });

@@ -99,6 +99,13 @@ export default function MenuPrincipal() {
       icon: 'mail-outline' as keyof typeof Ionicons.glyphMap,
       color: '#3498DB',
       route: '/avisos'
+    },
+    {
+      title: 'Frequência',
+      subtitle: 'Relatório de frequência',
+      icon: 'bar-chart-outline' as keyof typeof Ionicons.glyphMap,
+      color: '#c6c91bff',
+      route: '/relatorioFrequencia'
     }
   ];
 

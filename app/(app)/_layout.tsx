@@ -93,6 +93,19 @@ export default function AppLayout() {
           },
         }} 
       />
+      <Stack.Screen 
+        name="relatorioFrequencia/index" 
+        options={{ 
+          title: 'Relatório de Frequência',
+          headerStyle: {
+            backgroundColor: '#c6c91bff',
+          },
+          headerTintColor: '#FFF',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }} 
+      />
     </Stack>
   );
 }

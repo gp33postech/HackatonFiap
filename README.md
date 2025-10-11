@@ -180,7 +180,8 @@ O projeto utiliza as seguintes dependências (verifique o arquivo `package.json`
 
 *   Certifique-se de ter o Node.js instalado.
 *   Para desenvolvimento mobile, configure o ambiente conforme a documentação do React Native ou Expo.
-
+  
+login de teste: professor@teste.com  123456
 ## Repositório
 
 O código-fonte do projeto está disponível nos seguintes repositórios:
